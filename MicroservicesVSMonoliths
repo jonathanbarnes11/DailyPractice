@@ -1,0 +1,10 @@
+Microservices Vs Monoliths
+
+
+I've been working on scala/java based microservices for about 5 years and have seen a variety of great apps, terrible apps, and maladies. While I personally prefer microservices it's just a preference. The most important part of writing good applications is carefully writing software using best practices and sensible architecture/design principles.
+
+In the monoliths I have worked in the main problems are a lack of compartmentalization, state madness, and difficulty refactoring. These problems often combine to make it difficult to add features to the application and make it difficult to scale the application. So you get this super core piece of technology that has tons of the business going through it but gets really slow for your most important clients and difficult to add features to.
+
+Microservices tend to have major issues with overlap (two teams doing the same project), Rigor of engineering/coding practices ( Easier for junior developers to do bad stuff), difficult to develop synergies ( you often have same the same code rewritten in different places), it doesn't get tested well because you don't have the same level of resources for a small app as you do a monolith.
+
+TLDR; Monoliths become bad because people make bad choices. Microservices become bad because people make bad choices. With orginazational/engineering rigor either can be great depending on your business needs.

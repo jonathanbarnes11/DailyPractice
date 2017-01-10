@@ -1,0 +1,65 @@
+Scripting in scala
+Intellij open a new project
+Select scala then sbt
+
+
+
+Setup:
+run with: sbt 'run-main app'
+
+
+in src/main/scala/  creata app.scala
+import play.api.libs.ws.ning.NingWSClient
+
+import scala.concurrent.ExecutionContext.Implicits.global
+import grizzled.slf4j.{Logger, Logging}
+
+object app extends App with Logging {
+}
+
+In resources create logback.xml
+<configuration>
+  <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+      <encoder>
+          <pattern>%d{HH:mm:ss.SSS} TKD [%thread] %-5level %logger{36} - %msg%n
+          </pattern>
+      </encoder>
+  </appender>
+
+  <root level="debug">
+      <appender-ref ref="STDOUT" />
+  </root>
+
+  <logger name="com.ning.http.client" level="WARN"/>
+</configuration>
+
+
+Sbt setup can take up to ten minutes initially.
+build.sbt
+  name := "fillerScript"
+
+  version := "1.0"
+
+  scalaVersion := "2.11.8"
+
+  libraryDependencies ++= Seq("com.typesafe.play" %% "play-ws" % "2.4.3")
+
+  resolvers += "Sonatype OSS Snapshots" at "http://oss.sonatype.org/content/repositories/snapshots/"
+
+  seq(bintrayResolverSettings:_*)
+
+  libraryDependencies += "org.clapper" %% "grizzled-slf4j" % "1.0.2"
+
+  mainClass := Some("app")
+
+  logLevel in Global := Level.Info
+
+plugins.sbt
+  logLevel := Level.Info
+
+  resolvers += Resolver.url(
+  "bintray-sbt-plugin-releases",
+  url("http://dl.bintray.com/content/sbt/sbt-plugin-releases"))(
+  Resolver.ivyStylePatterns)
+
+  addSbtPlugin("me.lessis" % "bintray-sbt" % "0.1.1")
