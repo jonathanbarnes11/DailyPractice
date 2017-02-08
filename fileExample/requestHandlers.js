@@ -1,5 +1,6 @@
-var exec = require('child_process').exec;
+//var exec = require('child_process').exec;
 var querystring = require('querystring');
+var fs = require('fs');
 
 function start(response, postData) {
 	var body = '<html>'+
@@ -24,9 +25,18 @@ function start(response, postData) {
 
 function upload(response, postData) {
 	//console.log("Request handler 'upload' was called");
-	response.writeHead(200, {'Content-Type': 'text/plain'}); response.write('Message:' + postData);
+	response.writeHead(200, {'Content-Type': 'text/plain'});
+	response.write('You sent the text' +
+	querystring.parse(postData.text));
 	response.end();
+}
+
+function show(response) {
+	console.log('Request handler "show" was called.');
+	response.writeHead(200, {'Content-type': 'image/png'});
+	fs.createReadStream('tmp/test.png').pipe(response);
 }
 
 exports.start = start;
 exports.upload = upload;
+exports.show = show;
